@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ACharacter : MonoBehaviour
+public abstract class ACharacter
 {
 	protected int hp;
 	protected int armor;
 	protected int attack;
 	protected int rangeMovement;
 	protected int rangeAttack;
+	protected Material material;
 
     public int getHp()
     {
@@ -32,6 +33,11 @@ public abstract class ACharacter : MonoBehaviour
 	public int getAttack()
 	{
         return attack;
+	}
+
+	public Material getMaterial()
+	{
+		return material;
 	}
 
     public void applyDamage(int damage)

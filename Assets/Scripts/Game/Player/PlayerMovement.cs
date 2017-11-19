@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		playerManager.selected = false;
+		FindObjectOfType<GameManager> ().selectedPlayer = null;
 	}
 
 	void Move(Vector3 _targetPosition) {

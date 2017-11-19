@@ -12,22 +12,24 @@ public class GroundManager : MonoBehaviour {
 
 	MapManager mapManager;
 	MapDisplay mapDisplay;
-	PlayerManager playerManager;
+	GameManager gameManager;
 
 	// Unity core methods
 
 	void Start() {
 		mapManager = FindObjectOfType<MapManager> ();
 		mapDisplay = FindObjectOfType<MapDisplay> ();
-		playerManager = FindObjectOfType<PlayerManager> ();
+		gameManager = FindObjectOfType<GameManager> ();
 
-		Deselect ();
+		defaultColor = GetComponent<MeshRenderer> ().material.color;
 	}
 
 	// Custom methods
 
 	public void Hover() {
-		if (playerManager.selected) {
+		if (gameManager.selectedPlayer) {
+			PlayerManager playerManager = gameManager.selectedPlayer;
+
 			mapManager.ResetNodes (playerManager.path, true);
 
 			Vector3 start  = playerManager.transform.position;
@@ -47,8 +49,8 @@ public class GroundManager : MonoBehaviour {
 	}
 
 	public void Select() {
-		if (playerManager.selected) {
-			playerManager.canMove = true;
+		if (gameManager.selectedPlayer) {
+			gameManager.selectedPlayer.canMove = true;
 		} else {
 			GetComponent<MeshRenderer> ().material.color = activeColor;
 			active = true;

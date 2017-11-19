@@ -1707,6 +1707,7 @@ MonoBehaviour:
   MapPrefab: {fileID: 1975415593508512, guid: a87eeea2846ce4761aee7b9b735c7f2c, type: 2}
   PlayerPrefab: {fileID: 1839425376593086, guid: 94def2c2ccb7b42a88c4fd51800c7333,
     type: 2}
+  selectedPlayer: {fileID: 0}
 --- !u!114 &1025820613
 MonoBehaviour:
   m_ObjectHideFlags: 0

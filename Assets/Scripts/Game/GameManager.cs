@@ -7,11 +7,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject MapPrefab;
 	public GameObject PlayerPrefab;
 
+	public PlayerManager selectedPlayer;
+
 	GameObject map;
-	GameObject player;
 
 	void Start() {
+		selectedPlayer = null;
+
 		CreateMap ();
+		SpawnPlayer ();
 		SpawnPlayer ();
 	}
 
@@ -25,7 +29,7 @@ public class GameManager : MonoBehaviour {
 		mapManager.Create (Random.Range(0, 100), new Vector2(30, 30));
 	}
 
-	void SpawnPlayer() {
+	GameObject SpawnPlayer() {
 		MapManager mapManager;
 		mapManager = map.transform.GetComponent<MapManager> ();
 
@@ -49,9 +53,12 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		player = Instantiate (PlayerPrefab, position, Quaternion.identity);
+		GameObject player = Instantiate (PlayerPrefab, position, Quaternion.identity);
+		player.transform.GetComponent<PlayerManager> ().setType (Random.Range(1, 3));
 		player.name = "Player";
 		player.transform.parent = transform;
+
+		return player;
 	}
 
 }
