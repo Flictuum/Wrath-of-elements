@@ -33,7 +33,7 @@ public class GroundManager : MonoBehaviour {
 			Vector3 start  = playerManager.transform.position;
 			Vector3 target = transform.position;
 
-			playerManager.path = Pathfinder.FindPath (start, target, 5);
+            playerManager.path = Pathfinder.FindPath (start, target, playerManager.character.getRangeMovement());
 
 			Transform lastItem = null;
 			foreach (Node node in playerManager.path) {
