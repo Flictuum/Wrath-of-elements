@@ -8,38 +8,58 @@ public class GroundManager : MonoBehaviour {
 	public Color hoverColor;
 	public Color activeColor;
 
-	private bool active;
+	bool active;
+
+	MapManager mapManager;
+	MapDisplay mapDisplay;
+	GameManager gameManager;
+
+	// Unity core methods
+
+	void Start() {
+		mapManager = FindObjectOfType<MapManager> ();
+		mapDisplay = FindObjectOfType<MapDisplay> ();
+		gameManager = FindObjectOfType<GameManager> ();
+
+		defaultColor = GetComponent<MeshRenderer> ().material.color;
+	}
 
 	// Custom methods
 
 	public void Hover() {
-		if (MapDisplay.activeGround == null) {
-			GetComponent<MeshRenderer> ().material.color = hoverColor;
-		}
+		if (gameManager.selectedPlayer) {
+			PlayerManager playerManager = gameManager.selectedPlayer;
 
-		if (MapDisplay.activeGround) {
-			Pathfinder.ClearPath (MapDisplay.activePath);
+			mapManager.ResetNodes (playerManager.path, true);
 
-			Vector3 start  = MapDisplay.activeGround.transform.position;
+			Vector3 start  = playerManager.transform.position;
 			Vector3 target = transform.position;
-			MapDisplay.activePath = Pathfinder.FindPath (start, target, 5);
+
+            playerManager.path = Pathfinder.FindPath (start, target, playerManager.character.getRangeMovement());
+
+			Transform lastItem = null;
+			foreach (Node node in playerManager.path) {
+				node.item.GetComponent<MeshRenderer> ().material.color = Color.cyan;
+				lastItem = node.item;
+			}
+			lastItem.GetComponent<MeshRenderer> ().material.color = hoverColor;
+		} else {
+			GetComponent<MeshRenderer> ().material.color = hoverColor;
 		}
 	}
 
 	public void Select() {
-		GetComponent<MeshRenderer> ().material.color = activeColor;
-		active = true;
+		if (gameManager.selectedPlayer) {
+			gameManager.selectedPlayer.canMove = true;
+		} else {
+			GetComponent<MeshRenderer> ().material.color = activeColor;
+			active = true;
+		}
 	}
 
 	public void Deselect() {
 		GetComponent<MeshRenderer> ().material.color = defaultColor;
 		active = false;
-	}
-
-	// Unity core methods
-
-	void Start() {
-		Deselect ();
 	}
 
 	// Unity events
@@ -48,7 +68,7 @@ public class GroundManager : MonoBehaviour {
 		Hover ();
 	}
 
-	void OnMouseExit() {
+	public void OnMouseExit() {
 		if (active) {
 			Select ();
 		} else {
@@ -57,18 +77,22 @@ public class GroundManager : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		if (MapDisplay.activeGround && MapDisplay.activeGround != this) {
-			MapDisplay.activeGround.Deselect ();
+		GroundManager activeGround = null;
+
+		if (mapDisplay.activeGround) {
+			activeGround = mapDisplay.activeGround.GetComponent<GroundManager> ();
 		}
 
-		Pathfinder.ClearPath (MapDisplay.activePath);
+		if (activeGround && activeGround != this) {
+			activeGround.Deselect ();
+		}
 
 		if (active) {
 			Deselect ();
-			MapDisplay.activeGround = null;
+			mapDisplay.activeGround = null;
 		} else {
 			Select ();
-			MapDisplay.activeGround = this;
+			mapDisplay.activeGround = transform;
 		}
 	}
 

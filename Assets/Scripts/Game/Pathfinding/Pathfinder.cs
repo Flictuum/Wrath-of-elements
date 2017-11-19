@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour {
 
-	public static Node FindPath(Vector3 start, Vector3 target, int maxMoves) {
+	public static List<Node> FindPath(Vector3 start, Vector3 target, int maxMoves) {
 		MapManager mapManager = FindObjectOfType<MapManager> ();
 
 		Node startNode  = mapManager.GetNodeFromPosition (start);
@@ -30,13 +30,11 @@ public class Pathfinder : MonoBehaviour {
 			closedSet.Add (currentNode);
 
 			if (Pathfinder.CountMoves(currentNode) == maxMoves) {
-				Pathfinder.DrawPath (currentNode);
-				return currentNode;
+				return Pathfinder.GetPath (currentNode);
 			}
 
 			if (currentNode == targetNode) {
-				Pathfinder.DrawPath (targetNode);
-				return targetNode;
+				return Pathfinder.GetPath (targetNode);
 			}
 
 			foreach (Node neighbour in mapManager.GetNeighbourNodes(currentNode)) {
@@ -81,26 +79,16 @@ public class Pathfinder : MonoBehaviour {
 		}
 	}
 
-	public static void ClearPath(Node target) {
-		Node prev;
+	public static List<Node> GetPath(Node target) {
+		List<Node> path = new List<Node> ();
 
 		while (target != null) {
-			if (target.parent != null) {
-				target.item.GetComponent<GroundManager> ().Deselect ();
-			}
-			prev   = target;
+			path.Add (target);
 			target = target.parent;
-			prev.parent = null;
 		}
-	}
 
-	public static void DrawPath(Node target) {
-		while (target != null) {
-			if (target.parent != null) {
-				target.item.GetComponent<MeshRenderer> ().material.color = Color.cyan;
-			}
-			target = target.parent;
-		}
+		path.Reverse ();
+		return path;
 	}
 
 }
