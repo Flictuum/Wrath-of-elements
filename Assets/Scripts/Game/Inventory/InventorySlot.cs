@@ -4,7 +4,10 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour {
     public Image icon;
     public Button removeButton;
+    public GameObject itemDesc;
+
     Item item;
+    Text[] texts;
 
     public void addItem(Item newItem)
     {
@@ -32,6 +35,16 @@ public class InventorySlot : MonoBehaviour {
         if (item != null)
         {
             item.use();
+        }
+    }
+
+    public void displayDescription()
+    {
+        texts = itemDesc.GetComponentsInChildren<UnityEngine.UI.Text>();
+        Debug.Log(texts);
+        if (item != null)
+        {
+            texts[0].text = item.name;
         }
     }
 }
