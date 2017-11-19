@@ -103,5 +103,6 @@ public class NetworkManager : NetworkLobbyManager {
 	// for users to handle adding a player failed on the server
 	public override void OnLobbyClientAddPlayerFailed()
 	{
+        
 	}
 }
