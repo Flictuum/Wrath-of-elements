@@ -20,9 +20,20 @@ public class MapManager : MonoBehaviour {
 		GetComponent<MapDisplay> ().DrawMap ();
 	}
 
+	public void ResetNodes(List<Node> nodes, bool resetMaterial) {
+		if (nodes == null) return;
+
+		foreach (Node node in nodes) {
+			if (resetMaterial) {
+				node.item.GetComponent<GroundManager> ().OnMouseExit ();
+			}
+			node.parent = null;
+		}
+	}
+
 	public Node GetNodeFromPosition(Vector3 position) {
-		int x = (int)(position.x - 0.5f + size.x / 2);
-		int y = (int)(position.z - 0.5f + size.y / 2);
+		int x = Mathf.RoundToInt(position.x - 0.5f + size.x / 2);
+		int y = Mathf.RoundToInt(position.z - 0.5f + size.y / 2);
 
 		return nodes [x, y];
 	}

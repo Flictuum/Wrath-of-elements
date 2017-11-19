@@ -7,10 +7,13 @@ public class MapDisplay : MonoBehaviour {
 	public Transform GroundPrefab;
 	public Transform ObstaclePrefab;
 
-	public static GroundManager activeGround = null;
-	public static Node activePath = null;
+	public Transform activeGround;
 
-	private bool IsAnEdge(Vector2 size, Vector2 coords) {
+	void Start() {
+		activeGround = null;
+	}
+
+	bool IsAnEdge(Vector2 size, Vector2 coords) {
 		if (coords.x == 0 || coords.x == size.x - 1 || coords.y == 0 || coords.y == size.y - 1) {
 			return true;
 		}
@@ -18,7 +21,7 @@ public class MapDisplay : MonoBehaviour {
 		return false;
 	}
 
-	private Vector3 GetPosition(Vector2 size, Vector2 coords) {
+	Vector3 GetPosition(Vector2 size, Vector2 coords) {
 		return new Vector3 (-size.x / 2 + 0.5f + coords.x, 0, -size.y / 2 + 0.5f + coords.y);
 	}
 
