@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class NetworkManager : MonoBehaviour {
-
-	NetworkClient client;
+public class NetworkManager : NetworkLobbyManager {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("@ Start");
-		SetupServer();
-		SetupLocalClient();
 	}
 	
 	// Update is called once per frame
@@ -19,26 +14,94 @@ public class NetworkManager : MonoBehaviour {
 		
 	}
 
-	public void SetupServer()
+	 void OnGUI()
 	{
-		NetworkServer.Listen(8888);
 	}
 
-	public void SetupClient()
+	// ------------------------ lobby server overrides ------------------------
+
+	public override void OnLobbyStartHost()
 	{
-		client = new NetworkClient();
-		client.RegisterHandler(MsgType.Connect, OnConnected);     
-		client.Connect("127.0.0.1", 8888);
 	}
 
-	public void SetupLocalClient()
+	public override void OnLobbyStopHost()
 	{
-		client = ClientScene.ConnectLocalServer();
-		client.RegisterHandler(MsgType.Connect, OnConnected);     
 	}
 
-	public void OnConnected(NetworkMessage netMsg)
+	public override void OnLobbyStartServer()
 	{
-		Debug.Log("Connected to server");
+	}
+
+	public override void OnLobbyServerConnect(NetworkConnection conn)
+	{
+	}
+
+	public override void OnLobbyServerDisconnect(NetworkConnection conn)
+	{
+	}
+
+	public override void OnLobbyServerSceneChanged(string sceneName)
+	{
+	}
+
+	public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
+	{
+		return null;
+	}
+
+	public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
+	{
+		return null;
+	}
+
+	public override void OnLobbyServerPlayerRemoved(NetworkConnection conn, short playerControllerId)
+	{
+	}
+
+	// for users to apply settings from their lobby player object to their in-game player object
+	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
+	{
+		return true;
+	}
+
+	public override void OnLobbyServerPlayersReady()
+	{
+		// all players are readyToBegin, start the game
+		base.OnLobbyServerPlayersReady();
+	}
+
+	// ------------------------ lobby client overrides ------------------------
+
+	public override void OnLobbyClientEnter()
+	{
+	}
+
+	public override void OnLobbyClientExit()
+	{
+	}
+
+	public override void OnLobbyClientConnect(NetworkConnection conn)
+	{
+	}
+
+	public override void OnLobbyClientDisconnect(NetworkConnection conn)
+	{
+	}
+
+	public override void OnLobbyStartClient(NetworkClient lobbyClient)
+	{
+	}
+
+	public override void OnLobbyStopClient()
+	{
+	}
+
+	public override void OnLobbyClientSceneChanged(NetworkConnection conn)
+	{
+	}
+
+	// for users to handle adding a player failed on the server
+	public override void OnLobbyClientAddPlayerFailed()
+	{
 	}
 }
