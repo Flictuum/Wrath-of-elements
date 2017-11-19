@@ -1,40 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour {
+public class EquipmentSlot : MonoBehaviour {
+    public Sprite placeholder;
     public Image icon;
-    public Button removeButton;
     public GameObject itemDesc;
 
-    Item item;
+    Equipment item;
     Text[] texts;
+    EquipmentManager equipManager;
 
-    public void addItem(Item newItem)
+    void Start()
+    {
+        equipManager = EquipmentManager.instance;
+    }
+
+    public void addItem(Equipment newItem)
     {
         this.item = newItem;
         this.icon.sprite = this.item.icon;
-        this.icon.enabled = true;
-        this.removeButton.interactable = true;
     }
 
     public void clearSlot()
     {
         this.item = null;
-        this.icon.sprite = null;
-        this.icon.enabled = false;
-        this.removeButton.interactable = false;
-    }
-
-    public void onRemoveButton()
-    {
-        Inventory.instance.remove(this.item);
+        this.icon.sprite = this.placeholder;
     }
 
     public void useItem()
     {
         if (item != null)
         {
-            item.use();
+            equipManager.unequip(item.equipType);
         }
     }
 
@@ -44,7 +41,7 @@ public class InventorySlot : MonoBehaviour {
         if (item != null)
         {
             texts[0].text = item.name;
-            texts[1].text = null;
+            texts[1].text = item.equipType.ToString() + " ATK:" + item.attackModifier + " DEF: " + item.defenseModifier;
         }
     }
 }

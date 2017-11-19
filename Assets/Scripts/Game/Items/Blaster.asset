@@ -14,4 +14,6 @@ MonoBehaviour:
   name: Blaster
   icon: {fileID: 21300000, guid: f4bc8c88a47f5944db165629483fa64a, type: 3}
   isDefaultItem: 0
-  equipSlot: 3
+  equipType: 4
+  attackModifier: 5
+  defenseModifier: 0
