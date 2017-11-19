@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1644,6 +1644,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapPrefab: {fileID: 1975415593508512, guid: a87eeea2846ce4761aee7b9b735c7f2c, type: 2}
+  PlayerPrefab: {fileID: 1839425376593086, guid: 94def2c2ccb7b42a88c4fd51800c7333,
+    type: 2}
 --- !u!114 &1025820613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1797,7 +1799,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1233615188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 79.31795, y: -80.3, z: 0}
+  m_LocalPosition: {x: 409.1316, y: -80.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1274029489}
@@ -2021,8 +2023,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1447757801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 265.5, y: 301, z: 0}
-  m_LocalScale: {x: 1.0033333, y: 1.0033333, z: 1.0033333}
+  m_LocalPosition: {x: 427, y: 215.5, z: 0}
+  m_LocalScale: {x: 0.7183333, y: 0.7183333, z: 0.7183333}
   m_Children:
   - {fileID: 1233615189}
   m_Father: {fileID: 0}
