@@ -16,13 +16,9 @@ public class GameManager : MonoBehaviour {
 		Map.name = "Map";
 		Map.transform.parent = this.transform;
 
-		MapGenerator Generator;
-		Generator = Map.transform.GetComponent<MapGenerator> ();
-		Generator.Create (Random.Range(0, 100), 30, 30);
+		MapManager mapManager;
+		mapManager = Map.transform.GetComponent<MapManager> ();
+		mapManager.Create (Random.Range(0, 100), new Vector2(30, 30));
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
