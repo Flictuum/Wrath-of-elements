@@ -13,7 +13,17 @@ public class GroundManager : MonoBehaviour {
 	// Custom methods
 
 	public void Hover() {
-		GetComponent<MeshRenderer> ().material.color = hoverColor;
+		if (MapDisplay.activeGround == null) {
+			GetComponent<MeshRenderer> ().material.color = hoverColor;
+		}
+
+		if (MapDisplay.activeGround) {
+			Pathfinder.ClearPath (MapDisplay.activePath);
+
+			Vector3 start  = MapDisplay.activeGround.transform.position;
+			Vector3 target = transform.position;
+			MapDisplay.activePath = Pathfinder.FindPath (start, target, 5);
+		}
 	}
 
 	public void Select() {
@@ -50,6 +60,8 @@ public class GroundManager : MonoBehaviour {
 		if (MapDisplay.activeGround && MapDisplay.activeGround != this) {
 			MapDisplay.activeGround.Deselect ();
 		}
+
+		Pathfinder.ClearPath (MapDisplay.activePath);
 
 		if (active) {
 			Deselect ();
