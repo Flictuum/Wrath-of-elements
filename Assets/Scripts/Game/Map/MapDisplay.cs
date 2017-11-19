@@ -4,53 +4,46 @@ using UnityEngine;
 
 public class MapDisplay : MonoBehaviour {
 
-	public GameObject wall;
-	public GameObject ground;
+	public Transform GroundPrefab;
+	public Transform ObstaclePrefab;
 
 	public static GroundManager activeGround = null;
+	public static Node activePath = null;
 
-	private bool CheckBorders(int width, int height, int x, int y) {
-		// We have to add borders to our map
-		if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+	private bool IsAnEdge(Vector2 size, Vector2 coords) {
+		if (coords.x == 0 || coords.x == size.x - 1 || coords.y == 0 || coords.y == size.y - 1) {
 			return true;
 		}
 
 		return false;
 	}
 
-	public void DrawMap (float[,] noiseMap) {
-		// Get the width and height of the map
-		int width = noiseMap.GetLength (0);
-		int height = noiseMap.GetLength (1);
+	private Vector3 GetPosition(Vector2 size, Vector2 coords) {
+		return new Vector3 (-size.x / 2 + 0.5f + coords.x, 0, -size.y / 2 + 0.5f + coords.y);
+	}
 
-		// As this is a PoC, we can dynamically re-generate the map
-		// Destroy old childs
-		foreach (Transform child in transform) {
-			Destroy (child.gameObject);
-		}
+	public void DrawMap () {
+		MapManager manager = GetComponent<MapManager> ();
 
-		// Instantiate the prefabs based on the perlin noise values
-		for (int y = 0; y < height; y++) {
-			GameObject row = new GameObject ("Row");
-			row.transform.parent = transform;
+		for (int x = 0; x < manager.size.x; x++) {
+			Transform container = new GameObject ("Row").transform;
+			container.parent = transform;
 
-			for (int x = 0; x < width; x++) {
-				GameObject newObject;
-				Quaternion rotation = new Quaternion (0, 0, 0, 0);
+			for (int y = 0; y < manager.size.y; y++) {
+				Vector2 coords = new Vector2 (x, y);
+				Vector3 position = GetPosition (manager.size, coords);
+				Transform Ground = Instantiate (GroundPrefab, position, Quaternion.Euler(Vector3.right * 90)) as Transform;
+				Ground.parent = container;
 
-				// Above a threshold or if it's a border, we create a wall
-				if (CheckBorders(width, height, x, y) || noiseMap [x, y] > 0.6f) {
-					Vector3 position = new Vector3 (x, .5f, y);
-					newObject = Instantiate (wall, position, rotation);
-					newObject.name = "Wall";
-				// Below, it's the ground
-				} else {
-					Vector3 position = new Vector3 (x, 0, y);
-					newObject = Instantiate (ground, position, rotation);
-					newObject.name = "Ground";
+				Node node = new Node(true, Ground, x, y);
+
+				if (manager.noiseMap [x, y] > 0.6f || IsAnEdge(manager.size, coords)) {
+					Transform Obstacle = Instantiate (ObstaclePrefab, position + Vector3.up * 0.5f, Quaternion.identity) as Transform;
+					Obstacle.parent = container;
+					node.walkable = false;
 				}
 
-				newObject.transform.parent = row.transform;
+				manager.nodes [x, y] = node;
 			}
 		}
 	}
