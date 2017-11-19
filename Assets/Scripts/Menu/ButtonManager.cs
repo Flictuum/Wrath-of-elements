@@ -5,12 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour {
 
-    public void CreateGame(string newSceneName)
-	{
-		SceneManager.LoadScene(newSceneName);
-	}
-
-	public void JoinGame(string newSceneName)
+    public void PlayGame(string newSceneName)
 	{
 		SceneManager.LoadScene(newSceneName);
 	}
