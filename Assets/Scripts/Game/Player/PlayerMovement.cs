@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
+	
+	public bool canMove;
 
 	Vector3 startPosition;
 	Vector3 targetPosition;
+
+	PlayerActions playerActions;
 
 	bool isNotMoving;
 
@@ -13,35 +17,33 @@ public class PlayerMovement : MonoBehaviour {
 	float movementDuration;
 	float percentageComplete;
 
-	PlayerManager playerManager;
-
 	int targetIndex;
 
 	void Start() {
 		isNotMoving = true;
 		movementDuration = 0.25f;
 		targetIndex = 0;
+		canMove = false;
 
-		playerManager = GetComponent<PlayerManager> ();
+		playerActions = GetComponent<PlayerActions> ();
 	}
 
 	void Update() {
-		if (!playerManager.canMove) return;
+		if (!canMove) return;
 
-		Move (playerManager.path [targetIndex].item.position + Vector3.up);
+		playerActions.actionMode = 0;
 
+		Move (playerActions.pathNodes [targetIndex].item.position + Vector3.up);
 		if (Finished ()) {
-			playerManager.path [targetIndex].item.GetComponent<GroundManager> ().OnMouseExit ();
+			playerActions.pathNodes [targetIndex].item.GetComponent<GroundManager> ().OnMouseExit ();
 			targetIndex++;
 		}
 
-		if (targetIndex == playerManager.path.Count) {
-			playerManager.canMove = false;
+		if (targetIndex == playerActions.pathNodes.Count) {
+			canMove = false;
+			playerActions.actionMode = 2;
 			targetIndex = 0;
 		}
-
-		playerManager.selected = false;
-		FindObjectOfType<GameManager> ().selectedPlayer = null;
 	}
 
 	void Move(Vector3 _targetPosition) {

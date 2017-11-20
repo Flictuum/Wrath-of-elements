@@ -6,6 +6,7 @@ public class GroundManager : MonoBehaviour {
 
 	public Color defaultColor;
 	public Color hoverColor;
+	public Color hoverAttackColor;
 	public Color activeColor;
 
 	bool active;
@@ -17,8 +18,8 @@ public class GroundManager : MonoBehaviour {
 	// Unity core methods
 
 	void Start() {
-		mapManager = FindObjectOfType<MapManager> ();
-		mapDisplay = FindObjectOfType<MapDisplay> ();
+		mapManager  = FindObjectOfType<MapManager> ();
+		mapDisplay  = FindObjectOfType<MapDisplay> ();
 		gameManager = FindObjectOfType<GameManager> ();
 
 		defaultColor = GetComponent<MeshRenderer> ().material.color;
@@ -27,30 +28,38 @@ public class GroundManager : MonoBehaviour {
 	// Custom methods
 
 	public void Hover() {
-		if (gameManager.selectedPlayer) {
-			PlayerManager playerManager = gameManager.selectedPlayer;
+		PlayerActions playerActions = gameManager.activePlayer.GetComponent<PlayerActions> ();
 
-			mapManager.ResetNodes (playerManager.path, true);
+		if (playerActions.actionMode == 2) {
+			PlayerManager playerManager = gameManager.activePlayer;
 
-			Vector3 start  = playerManager.transform.position;
+			mapManager.ResetNodes (playerActions.pathNodes, true);
+
+			Vector3 start = playerManager.transform.position;
 			Vector3 target = transform.position;
 
-            playerManager.path = Pathfinder.FindPath (start, target, playerManager.character.getRangeMovement());
+			playerActions.pathNodes = Pathfinder.FindPath (start, target, playerManager.character.getRangeMovement ());
 
 			Transform lastItem = null;
-			foreach (Node node in playerManager.path) {
+			foreach (Node node in playerActions.pathNodes) {
 				node.item.GetComponent<MeshRenderer> ().material.color = Color.cyan;
 				lastItem = node.item;
 			}
 			lastItem.GetComponent<MeshRenderer> ().material.color = hoverColor;
+		} else if (playerActions.actionMode == 1
+			&& mapManager.PositionIsInNodesList (playerActions.neighbourNodes, transform.position)) {
+			GetComponent<MeshRenderer> ().material.color = hoverAttackColor;
 		} else {
 			GetComponent<MeshRenderer> ().material.color = hoverColor;
 		}
 	}
 
 	public void Select() {
-		if (gameManager.selectedPlayer) {
-			gameManager.selectedPlayer.canMove = true;
+		PlayerActions playerActions   = gameManager.activePlayer.GetComponent<PlayerActions> ();
+		PlayerMovement playerMovement = gameManager.activePlayer.GetComponent<PlayerMovement> ();
+
+		if (playerActions.actionMode == 2) {
+			playerMovement.canMove = true;
 		} else {
 			GetComponent<MeshRenderer> ().material.color = activeColor;
 			active = true;
@@ -58,7 +67,14 @@ public class GroundManager : MonoBehaviour {
 	}
 
 	public void Deselect() {
-		GetComponent<MeshRenderer> ().material.color = defaultColor;
+		PlayerActions playerActions = gameManager.activePlayer.GetComponent<PlayerActions> ();
+
+		if (playerActions.actionMode == 1
+		    && mapManager.PositionIsInNodesList (playerActions.neighbourNodes, transform.position)) {
+			GetComponent<MeshRenderer> ().material.color = Color.magenta;
+		} else {
+			GetComponent<MeshRenderer> ().material.color = defaultColor;
+		}
 		active = false;
 	}
 
