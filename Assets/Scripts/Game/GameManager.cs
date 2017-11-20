@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject PlayerPrefab;
 
 	public PlayerManager selectedPlayer;
+	public PlayerManager activePlayer;
+
 
 	GameObject map;
 
@@ -15,7 +17,7 @@ public class GameManager : MonoBehaviour {
 		selectedPlayer = null;
 
 		CreateMap ();
-		SpawnPlayer ();
+		activePlayer = SpawnPlayer ();
 		SpawnPlayer ();
 	}
 
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour {
 		mapManager.Create (Random.Range(0, 100), new Vector2(30, 30));
 	}
 
-	GameObject SpawnPlayer() {
+    PlayerManager SpawnPlayer() {
 		MapManager mapManager;
 		mapManager = map.transform.GetComponent<MapManager> ();
 
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour {
 		player.name = "Player";
 		player.transform.parent = transform;
 
-		return player;
+        return player.GetComponent<PlayerManager>();
 	}
 
 }

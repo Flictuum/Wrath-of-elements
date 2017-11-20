@@ -9,6 +9,8 @@ public abstract class ACharacter
 	protected int rangeMovement;
 	protected int rangeAttack;
 	protected Material material;
+    protected int attackBonus;
+    protected int armorBonus;
 
     public int getHp()
     {
@@ -27,12 +29,12 @@ public abstract class ACharacter
 
 	public int getArmor()
 	{
-        return armor;
+        return armor + armorBonus;
 	}
 
 	public int getAttack()
 	{
-        return attack;
+        return attack + attackBonus;
 	}
 
 	public Material getMaterial()
@@ -44,4 +46,24 @@ public abstract class ACharacter
     {
         hp -= (damage - getArmor());
     }
+
+    public void setAttackBonus(int bonus)
+    {
+        attackBonus = bonus;
+    }
+
+	public void setArmorBonus(int bonus)
+	{
+        armorBonus = bonus;
+	}
+
+	public void addAttackBonus(int bonus)
+	{
+		attackBonus += bonus;
+	}
+
+	public void addArmorBonus(int bonus)
+	{
+		armorBonus += bonus;
+	}
 }
