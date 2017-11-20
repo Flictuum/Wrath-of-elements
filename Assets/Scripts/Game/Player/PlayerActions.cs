@@ -56,6 +56,9 @@ public class PlayerActions : MonoBehaviour {
 			if (transform.position == neighbour.item.position + Vector3.up) {
 
 				playerManager.character.applyDamage (activePlayer.character.getAttack ());
+				Transform healthBar = transform.Find("HealthContainer").transform;
+				healthBar.localScale = new Vector3 ((float)playerManager.character.getHp() / (float)playerManager.character.GetTotalHp(), 1, 1);
+
 				activePlayerActions.actionMode = 2;
 				mapManager.ResetNodes (activePlayerActions.neighbourNodes, true);
 

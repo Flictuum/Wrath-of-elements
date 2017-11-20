@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class ACharacter
 {
 	protected int hp;
+	protected int totalHp;
 	protected int armor;
 	protected int attack;
 	protected int rangeMovement;
@@ -16,6 +17,10 @@ public abstract class ACharacter
     {
         return hp;
     }
+
+	public int GetTotalHp() {
+		return totalHp;
+	}
 
 	public int getRangeMovement()
 	{
@@ -44,6 +49,7 @@ public abstract class ACharacter
 
     public void applyDamage(int damage)
     {
+		if (getArmor () >= damage) return;
         hp -= (damage - getArmor());
     }
 

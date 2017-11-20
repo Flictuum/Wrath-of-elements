@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterPeople : ACharacter
-{
+public class WaterPeople : ACharacter {
+	
     public WaterPeople()
-    {
-		this.hp = 10;
+	{
+		this.totalHp = this.hp = 10;
 		this.attack = 7;
 		this.armor = 9;
 		this.attackBonus = 0;

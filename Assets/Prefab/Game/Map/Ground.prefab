@@ -111,4 +111,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   hoverColor: {r: 0.1385008, g: 0.46323532, b: 0.095371984, a: 0}
+  hoverAttackColor: {r: 0.38235295, g: 0.028114192, b: 0.29929006, a: 0}
   activeColor: {r: 0.71323526, g: 0.052443776, b: 0.052443776, a: 0}

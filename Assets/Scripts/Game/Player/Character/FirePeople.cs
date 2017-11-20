@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirePeople : ACharacter
-{
+public class FirePeople : ACharacter {
+	
     public FirePeople()
     {
-        this.hp = 5;
+		this.totalHp = this.hp = 5;
         this.attack = 12;
         this.armor = 8;
 		this.attackBonus = 0;

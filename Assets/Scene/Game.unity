@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 40fa5696077438a49bbce1aac01eba84, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.86101335, g: 0.7790319, b: 0.65554535, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2226,9 +2226,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapPrefab: {fileID: 1975415593508512, guid: a87eeea2846ce4761aee7b9b735c7f2c, type: 2}
-  PlayerPrefab: {fileID: 1839425376593086, guid: 94def2c2ccb7b42a88c4fd51800c7333,
+  PlayerPrefab: {fileID: 1954906543671794, guid: 16c6a97408ee34cd68aa0eaee581aa26,
     type: 2}
-  selectedPlayer: {fileID: 0}
+  activePlayer: {fileID: 0}
+  inactivePlayer: {fileID: 0}
 --- !u!114 &1025820613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2557,7 +2558,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1233615188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.14618, y: -28.899994, z: 0}
+  m_LocalPosition: {x: 353.5592, y: -28.899994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1274029489}
@@ -2850,8 +2851,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1447757801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 257, y: 301, z: 0}
-  m_LocalScale: {x: 1.0033333, y: 1.0033333, z: 1.0033333}
+  m_LocalPosition: {x: 423.5, y: 215.5, z: 0}
+  m_LocalScale: {x: 0.7183333, y: 0.7183333, z: 0.7183333}
   m_Children:
   - {fileID: 1233615189}
   m_Father: {fileID: 0}
@@ -4225,7 +4226,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1901175876}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -3.68, y: -5.77, z: 6.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
