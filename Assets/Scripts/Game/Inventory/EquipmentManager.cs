@@ -64,16 +64,18 @@ public class EquipmentManager : MonoBehaviour {
 
     private void updateBonus()
     {
-        this.attackBonus = 0;
-        this.defenseBonus = 0;
+        GameManager gameManager = FindObjectOfType<GameManager>();
+
+        gameManager.activePlayer.character.setAttackBonus(0);
+        gameManager.activePlayer.character.setArmorBonus(0);
 
         for (int i = 0; i < currentEquipment.Length; i++)
         {
             if (this.currentEquipment[i] != null)
             {
-                this.attackBonus += this.currentEquipment[i].attackModifier;
-                this.defenseBonus += this.currentEquipment[i].defenseModifier;
+                gameManager.activePlayer.character.addAttackBonus(this.currentEquipment[i].attackModifier);
+                gameManager.activePlayer.character.addArmorBonus(this.currentEquipment[i].defenseModifier);
             }
         }
-    }
+	}
 }
