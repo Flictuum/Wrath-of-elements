@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1428,6 +1428,7 @@ GameObject:
   - component: {fileID: 621703128}
   - component: {fileID: 621703127}
   - component: {fileID: 621703126}
+  - component: {fileID: 621703130}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1497,6 +1498,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
+--- !u!114 &621703130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 621703125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae7e5375e245d42ab9d6592570501db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &623814865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,6 +2241,7 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1839425376593086, guid: 94def2c2ccb7b42a88c4fd51800c7333,
     type: 2}
   selectedPlayer: {fileID: 0}
+  activePlayer: {fileID: 0}
 --- !u!114 &1025820613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2557,7 +2570,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1233615188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.14618, y: -28.899994, z: 0}
+  m_LocalPosition: {x: 262.45053, y: -28.899994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1274029489}
@@ -2850,8 +2863,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1447757801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 257, y: 301, z: 0}
-  m_LocalScale: {x: 1.0033333, y: 1.0033333, z: 1.0033333}
+  m_LocalPosition: {x: 697, y: 419.5, z: 0}
+  m_LocalScale: {x: 1.3983333, y: 1.3983333, z: 1.3983333}
   m_Children:
   - {fileID: 1233615189}
   m_Father: {fileID: 0}
